@@ -1,10 +1,10 @@
 import React from 'react';
 import {shallow} from 'enzyme';
-import {FrontPage} from '../../pages/FrontPage';
+import App from '../App';
 
-describe('FrontPage', () => {
+describe('App', () => {
   it('should render initial layout', function() {
-    const component = shallow(<FrontPage/>);
+    const component = shallow(<App/>);
     expect(component).toMatchSnapshot();
   });
 });

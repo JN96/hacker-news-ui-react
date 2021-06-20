@@ -54,6 +54,7 @@
   "jest": {
     "snapshotSerializers": [
       "enzyme-to-json/serializer"
-    ]
+    ],
+    "watchPathIgnorePatterns": ["./reportWebVitals.js", "./index.js", "./constants"]
   }
 }
