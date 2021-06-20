@@ -1,0 +1,62 @@
+._story-card {
+  height: 100%;
+  width: 100%;
+
+  &-inner-container {
+    padding: 2% 8%;
+    justify-content: space-between;
+    border-width: 2px;
+    border-color: rgba(0, 0, 0, 0.05);
+    border-radius: 8px;
+    box-shadow: 0px 3px 1px rgba(0, 0, 0, 0.2);
+  }
+}
+
+p {
+  margin: 7px;
+}
+
+._vertical-line {
+  padding-left: 7px;
+  padding-right: 7px;
+  display: inline-block;
+  color: rgba(0, 0, 0, 0.2);
+}
+
+a, ._story-title {
+  text-decoration: none !important;
+  color: #000000;
+  display: inline-block;
+  font-weight: bold;
+}
+
+._story-url-icon {
+  padding-top: 5px;
+  display: inline;
+}
+
+._story-card-details-container {
+  display: inline-block;
+}
+
+._story-author {
+  display: inline-block;
+}
+
+._story-score {
+  display: inline-block;
+}
+
+._story-comments {
+  display: inline-block;
+}
+
+._story-time {
+  display: inline-block;
+}
+
+._story-type {
+  position: relative;
+  //top: 9px;
+  display: inline-block;
+}

@@ -1,0 +1,13 @@
+._basic-layout-container {;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  flex-grow: 0;
+  flex-shrink: 0;
+  flex-basis: 50%;
+  margin: 0 auto;
+  min-height: 100vh;
+  background-color: #ffffff;
+  max-width: 1080px;
+}
