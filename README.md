@@ -1,5 +1,11 @@
 # Getting Started with Hacker News UI React
 
+Prerequisites: 
+- Node
+- npm
+
+Before running the available commands, run `npm install`
+
 ## Available Scripts
 
 In the project directory, you can run:
