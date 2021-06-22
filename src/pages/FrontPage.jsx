@@ -6,9 +6,10 @@ import {StoryCard} from '../components/storyCard/StoryCard';
 import {Pagination} from '@material-ui/lab';
 import {Button} from '@material-ui/core';
 import {dictionary} from '../lang/en';
+import ErrorOutlineIcon from '@material-ui/icons/ErrorOutline';
 
 export const FrontPage = () => {
-  const [loading, setLoading] = useState(false);
+  const [loading, setLoading] = useState(true);
   const [error, setError] = useState(null);
   const [storyIds, setStoryIds] = useState([]);
   const [stories, setStories] = useState([]);
@@ -21,6 +22,25 @@ export const FrontPage = () => {
   }
 
   useEffect(() => {
+    getTopStories();
+  }, []);
+
+  const handlePageChange = (data, page) => {
+    setLoading(true);
+    setPage(page);
+    api.fetchDataFromIds(data, page)
+      .then((data) => {
+        setStories(data);
+        resetDivScrollbar();
+        setLoading(false);
+      })
+      .catch((error) => {
+        setError(error.message);
+        setLoading(false);
+      });
+  };
+
+  const getTopStories = () => {
     setLoading(true);
     api.fetchTopStories()
       .then((data) => {
@@ -29,22 +49,9 @@ export const FrontPage = () => {
         return data;
       })
       .then((data) => {
-        handlePageChange(data, 1);
-      })
-      .catch((error) => {
-        setError(error.message);
-        setLoading(false);
-      });
-  }, []);
-
-  const handlePageChange = (data, page) => {
-    setPage(page);
-    setLoading(true);
-    api.fetchDataFromIds(data, page)
-      .then((data) => {
-        setStories(data);
-        resetDivScrollbar();
-        setLoading(false);
+        if (data && data.length > 0) {
+          handlePageChange(data, 1);
+        }
       })
       .catch((error) => {
         setError(error.message);
@@ -61,7 +68,9 @@ export const FrontPage = () => {
         return data;
       })
       .then((data) => {
-        handlePageChange(data, 1);
+        if (data && data.length > 0) {
+          handlePageChange(data, 1);
+        }
       })
       .catch((error) => {
         setError(error.message);
@@ -78,7 +87,9 @@ export const FrontPage = () => {
         return data;
       })
       .then((data) => {
-        handlePageChange(data, 1);
+        if (data && data.length > 0) {
+          handlePageChange(data, 1);
+        }
       })
       .catch((error) => {
         setError(error.message);
@@ -95,7 +106,9 @@ export const FrontPage = () => {
         return data;
       })
       .then((data) => {
-        handlePageChange(data, 1);
+        if (data && data.length > 0) {
+          handlePageChange(data, 1);
+        }
       })
       .catch((error) => {
         setError(error.message);
@@ -112,7 +125,9 @@ export const FrontPage = () => {
         return data;
       })
       .then((data) => {
-        handlePageChange(data, 1);
+        if (data && data.length > 0) {
+          handlePageChange(data, 1);
+        }
       })
       .catch((error) => {
         setError(error.message);
@@ -129,7 +144,9 @@ export const FrontPage = () => {
         return data;
       })
       .then((data) => {
-        handlePageChange(data, 1);
+        if (data && data.length > 0) {
+          handlePageChange(data, 1);
+        }
       })
       .catch((error) => {
         setError(error.message);
@@ -147,27 +164,32 @@ export const FrontPage = () => {
   return (
     <BasicLayout loading={loading} error={error} hackerNewsBanner={true}>
       <div className='_front-page-data-type-selection'>
-        <div className='_front-page-data-type-selection-button'>
-          <Button variant='contained' color='primary' key='here-i-am' onClick={() => getNewStories()}>
+        <div className='_front-page-data-type-selection-top-button'>
+          <Button variant='contained' color='primary' onClick={() => getTopStories()}>
+            {dictionary.frontPage.top}
+          </Button>
+        </div>
+        <div className='_front-page-data-type-selection-new-button'>
+          <Button variant='contained' color='primary' className='_new-button' onClick={() => getNewStories()}>
             {dictionary.frontPage.new}
           </Button>
         </div>
-        <div className='_front-page-data-type-selection-button'>
+        <div className='_front-page-data-type-selection-ask-button'>
           <Button variant='contained' color='primary' onClick={() => getAskStories()}>
             {dictionary.frontPage.ask}
           </Button>
         </div>
-        <div className='_front-page-data-type-selection-button'>
+        <div className='_front-page-data-type-selection-show-button'>
           <Button variant='contained' color='primary' onClick={() => getShowStories()}>
             {dictionary.frontPage.show}
           </Button>
         </div>
-        <div className='_front-page-data-type-selection-button'>
+        <div className='_front-page-data-type-selection-jobs-button'>
           <Button variant='contained' color='primary' onClick={() => getJobStories()}>
-            {dictionary.frontPage.job}
+            {dictionary.frontPage.jobs}
           </Button>
         </div>
-        <div className='_front-page-data-type-selection-button'>
+        <div className='_front-page-data-type-selection-best-button'>
           <Button variant='contained' color='primary' onClick={() => getBestStories()}>
             {dictionary.frontPage.best}
           </Button>
@@ -180,9 +202,12 @@ export const FrontPage = () => {
               <StoryCard key={`story-card-${story.id}-${index}`} data={story}/>
             </div>
           );
-        }) : !loading && (
-          <div>
-            No stories found!
+        }) : stories.length === 0 && !loading && (
+          <div className='_no-stories-found-container'>
+            <ErrorOutlineIcon className='no-stories-found-icon'/>
+            <h3 className='no-stories-found'>
+              {dictionary.frontPage.noStoriesFound}
+            </h3>
           </div>
         )}
       </div>

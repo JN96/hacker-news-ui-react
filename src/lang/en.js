@@ -6,10 +6,12 @@ export const dictionary = {
     error: 'Something went wrong. Please try again later.'
   },
   frontPage: {
+    top: 'Top (default)',
     new: 'New',
     ask: 'Ask',
     show: 'Show',
-    job: 'Jobs',
-    best: 'Best'
+    jobs: 'Jobs',
+    best: 'Best',
+    noStoriesFound: 'No stories found. Please try again later.'
   }
 };

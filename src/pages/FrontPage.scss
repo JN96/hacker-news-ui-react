@@ -7,6 +7,20 @@
 
 }
 
+._no-stories-found-container {
+  text-align: center;
+
+  .no-stories-found-icon {
+    display: inline;
+    margin-top: 20px;
+    margin-right: 10px;
+  }
+
+  .no-stories-found {
+    display: inline;
+  }
+}
+
 ._front-page-data-type-selection {
   align-items: center;
   justify-content: center;
@@ -15,7 +29,7 @@
   text-align: center;
   border-top: 1px solid rgba(0, 0, 0, 0.2);
 
-  &-button {
+  > div {
     margin-left: 20px;
     margin-right: 20px;
     margin-top: 20px;

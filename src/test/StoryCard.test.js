@@ -1,6 +1,6 @@
 import React from 'react';
 import {shallow} from 'enzyme';
-import {StoryCard} from '../../components/storyCard/StoryCard';
+import {StoryCard} from '../components/storyCard/StoryCard';
 
 describe('StoryCard', () => {
   const mockData = {
@@ -11,12 +11,12 @@ describe('StoryCard', () => {
     time: 1624206113
   };
 
-  it('should render initial layout', function() {
+  it('should render initial layout', () => {
     const component = shallow(<StoryCard data={mockData}/>);
     expect(component).toMatchSnapshot();
   });
 
-  it('should display the correct value', function() {
+  it('should display the correct value', () => {
     const expectedData = {
       title: 'test title',
       by: 'Posted by test author',

@@ -1,7 +1,7 @@
 import {dictionary} from '../lang/en';
 import {Utility} from '../utils/Utility';
 
-const HACKER_NEWS_API_URL_URL = "https://hacker-news.firebaseio.com/v0/topstories.json?print=pretty";
+const HACKER_NEWS_TOP_STORIES_URL = "https://hacker-news.firebaseio.com/v0/topstories.json?print=pretty";
 const HACKER_NEWS_NEW_STORIES_URL = 'https://hacker-news.firebaseio.com/v0/newstories.json?print=pretty';
 const HACKER_NEWS_JOB_STORIES_URL = 'https://hacker-news.firebaseio.com/v0/jobstories.json?print=pretty';
 const HACKER_NEWS_ASK_STORIES_URL = 'https://hacker-news.firebaseio.com/v0/asktories.json?print=pretty';
@@ -20,7 +20,7 @@ const FETCH_GET_API_CONFIG = {
 // https://news.ycombinator.com/
 
 const fetchTopStories = async () => {
-  let response = await fetch(HACKER_NEWS_API_URL_URL, FETCH_GET_API_CONFIG);
+  let response = await fetch(HACKER_NEWS_TOP_STORIES_URL, FETCH_GET_API_CONFIG);
 
   if (response.ok) {
     const data = await response.json();

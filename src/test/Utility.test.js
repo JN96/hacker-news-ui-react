@@ -1,7 +1,7 @@
-import {Utility} from '../../utils/Utility';
+import {Utility} from '../utils/Utility';
 
 describe('Utility.transformData()', () => {
-  it('should format the data into manageable chunks', function() {
+  it('should format the data into manageable chunks', () => {
     const mockData = [
       1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13, 14, 15,
       16, 17, 18, 19, 20, 21, 22, 23, 24, 25, 26, 27, 28, 29, 30,
@@ -19,7 +19,7 @@ describe('Utility.transformData()', () => {
   });
 
   describe('Utility.formatDateAndTime()', () => {
-    it('should return the formatted date and time', function() {
+    it('should return the formatted date and time', () => {
       const expectedDateAndTime = {
         formattedTime: '18:52:18',
         formattedDate: '20/06/2021'
