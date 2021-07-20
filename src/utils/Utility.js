@@ -2,7 +2,7 @@
  * Transforms the list into manageable chunks for making API calls and displaying data.
  *
  * @param data - array of ids
- * @returns [{page: 1, storyIds: 10}] - array of object with page number and 10 ids per object
+ * @returns [{page: 1, storyIds: [1, 2, 3, 4.....]}] - array of object with page number and 15 ids per object
  */
 const transformData = (data) => {
   let pageNumber = 1;

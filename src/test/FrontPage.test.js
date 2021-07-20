@@ -5,6 +5,14 @@ import {render, screen, act, waitFor} from '@testing-library/react';
 import userEvent from '@testing-library/user-event';
 import {dictionary} from '../lang/en';
 import {api} from '../services/api';
+import {
+  HACKER_NEWS_ASK_STORIES_URL,
+  HACKER_NEWS_BEST_STORIES_URL,
+  HACKER_NEWS_JOB_STORIES_URL,
+  HACKER_NEWS_NEW_STORIES_URL,
+  HACKER_NEWS_SHOW_STORIES_URL,
+  HACKER_NEWS_TOP_STORIES_URL
+} from '../constants/hackerNewsApiEndpoints';
 
 describe('FrontPage', () => {
   afterEach(() => {
@@ -43,7 +51,7 @@ describe('FrontPage', () => {
   });
 
   it('should render story cards', async () => {
-    jest.spyOn(api, 'fetchTopStories').mockImplementation(() => Promise.resolve(mockedIds));
+    jest.spyOn(api, 'fetchIdsFromHackerNewsApi').mockImplementation(() => Promise.resolve(mockedIds));
     jest.spyOn(api, 'fetchDataFromIds').mockImplementation(() => Promise.resolve(mockedDataFromIds));
 
     await act(async () => {
@@ -52,73 +60,35 @@ describe('FrontPage', () => {
 
     const node = await waitFor(() => screen.getAllByText('test title'));
 
-    expect(api.fetchTopStories).toHaveBeenCalled();
+    expect(api.fetchIdsFromHackerNewsApi).toHaveBeenCalled();
     expect(api.fetchDataFromIds).toHaveBeenCalled();
     expect(node).toHaveLength(2);
   });
 
-  it('should call the new stories api',  async () => {
-    jest.spyOn(api, 'fetchNewStories').mockImplementation(() => Promise.resolve(mockedIds));
-    jest.spyOn(api, 'fetchDataFromIds').mockImplementation(() => Promise.resolve(mockedDataFromIds));
+  [
+    {button: dictionary.frontPage.top, url: HACKER_NEWS_TOP_STORIES_URL},
+    {button: dictionary.frontPage.new, url: HACKER_NEWS_NEW_STORIES_URL},
+    {button: dictionary.frontPage.ask, url: HACKER_NEWS_ASK_STORIES_URL},
+    {button: dictionary.frontPage.best, url: HACKER_NEWS_BEST_STORIES_URL},
+    {button: dictionary.frontPage.jobs, url: HACKER_NEWS_JOB_STORIES_URL},
+    {button: dictionary.frontPage.show, url: HACKER_NEWS_SHOW_STORIES_URL}
+  ].forEach((testData) => {
+    it(`should call the ${testData.url} stories api`,  async () => {
+      jest.spyOn(api, 'fetchIdsFromHackerNewsApi').mockImplementation(() => Promise.resolve(mockedIds));
+      jest.spyOn(api, 'fetchDataFromIds').mockImplementation(() => Promise.resolve(mockedDataFromIds));
 
-    await act(async () => {
-      render(<FrontPage/>);
-      userEvent.click(screen.getByText(dictionary.frontPage.new));
+      await act(async () => {
+        render(<FrontPage/>);
+        userEvent.click(screen.getByText(testData.button));
+      });
+
+      expect(api.fetchIdsFromHackerNewsApi).toHaveBeenCalled();
+      expect(api.fetchIdsFromHackerNewsApi).toHaveBeenCalledWith(testData.url);
     });
-
-    expect(api.fetchNewStories).toHaveBeenCalled();
-  });
-
-  it('should call the ask stories api', async () => {
-    jest.spyOn(api, 'fetchAskStories').mockImplementation(() => Promise.resolve(mockedIds));
-    jest.spyOn(api, 'fetchDataFromIds').mockImplementation(() => Promise.resolve(mockedDataFromIds));
-
-    await act(async () => {
-      render(<FrontPage/>);
-      userEvent.click(screen.getByText(dictionary.frontPage.ask));
-    });
-
-    expect(api.fetchAskStories).toHaveBeenCalled();
-  });
-
-  it('should call the best stories api', async () => {
-    jest.spyOn(api, 'fetchBestStories').mockImplementation(() => Promise.resolve(mockedIds));
-    jest.spyOn(api, 'fetchDataFromIds').mockImplementation(() => Promise.resolve(mockedDataFromIds));
-
-    await act(async () => {
-      render(<FrontPage/>);
-      userEvent.click(screen.getByText(dictionary.frontPage.best));
-    });
-
-    expect(api.fetchBestStories).toHaveBeenCalled();
-  });
-
-  it('should call the job stories api', async () => {
-    jest.spyOn(api, 'fetchJobStories').mockImplementation(() => Promise.resolve(mockedIds));
-    jest.spyOn(api, 'fetchDataFromIds').mockImplementation(() => Promise.resolve(mockedDataFromIds));
-
-    await act(async () => {
-      render(<FrontPage/>);
-      userEvent.click(screen.getByText(dictionary.frontPage.jobs));
-    });
-
-    expect(api.fetchJobStories).toHaveBeenCalled();
-  });
-
-  it('should call the show show stories api', async () => {
-    jest.spyOn(api, 'fetchShowStories').mockImplementation(() => Promise.resolve(mockedIds));
-    jest.spyOn(api, 'fetchDataFromIds').mockImplementation(() => Promise.resolve(mockedDataFromIds));
-
-    await act(async () => {
-      render(<FrontPage/>);
-      userEvent.click(screen.getByText(dictionary.frontPage.show));
-    });
-
-    expect(api.fetchShowStories).toHaveBeenCalled();
   });
 
   it('should catch an error and display it when an api call is not OK', async () => {
-    jest.spyOn(api, 'fetchTopStories').mockImplementation(() => Promise.reject(new Error(dictionary.api.error + 'Response code: 401')));
+    jest.spyOn(api, 'fetchIdsFromHackerNewsApi').mockImplementation(() => Promise.reject(new Error(dictionary.api.error + 'Response code: 401')));
 
     await act(async () => {
       render(<FrontPage/>);
