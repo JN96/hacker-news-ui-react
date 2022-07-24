@@ -1,0 +1,40 @@
+._story-card-screen-container {
+  flex: 1 1px;
+  overflow-y: auto;
+  max-height: 100%;
+  width: 100%;
+  border-top: 1px solid rgba(0, 0, 0, 0.2);
+  border-bottom: 1px solid rgba(0, 0, 0, 0.2);
+}
+
+._story-card-screen-header {
+  width: 100%;
+  padding: 30px;
+  margin-left: 20px;
+  margin-right: 20px;
+  margin-top: 20px;
+
+  &-title {
+    align-items: center;
+    justify-content: center;
+    text-decoration: none !important;
+    color: #000000;
+    display: flex;
+    font-weight: bold;
+  }
+
+  &-return {
+
+  }
+
+}
+
+._card-spacing {
+  margin: 25px;
+  width: 90%;
+}
+
+._pagination-spacing {
+  margin-top: 20px;
+  margin-bottom: 20px
+}

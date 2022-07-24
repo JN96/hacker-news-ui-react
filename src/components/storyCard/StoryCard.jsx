@@ -1,4 +1,7 @@
 import React from 'react';
+import {
+  Link
+} from 'react-router-dom';
 import './StoryCard.scss';
 import Announcement from '@material-ui/icons/Announcement';
 import Work from '@material-ui/icons/Work';
@@ -39,7 +42,7 @@ export const StoryCard = ({
       <div className='_story-card-inner-container'>
         <a href={data.url} target="_blank" rel="noopener noreferrer" title={data.url}>
           <p className='_story-title'>{`${data.title}`}</p>
-          <LaunchIcon className='_story-url-icon' fontSize='small'/>
+          {data.url ? <LaunchIcon className='_story-url-icon' fontSize='small'/> : ''}
         </a>
         <div className='_story-card-details-container'>
           <p className='_story-type'>
@@ -54,8 +57,8 @@ export const StoryCard = ({
           <p className='_story-comments'>{data.kids && data.kids?.length === 1 ? `${data.kids?.length} comment` : data.kids?.length > 1 ? `${data.kids?.length} comments` : `No comments yet`}</p>
           <span className='_vertical-line'>|</span>
           <p className='_story-time'>{`Posted on ${formattedDateAndTime.formattedDate} at ${formattedDateAndTime.formattedTime}`}</p>
-          <span className='_vertical-line'>|</span>
         </div>
+        <Link to={{pathname: `/story/${data.id}`, state: data}}>HERE HERE HERE</Link>
       </div>
     </div>
   );
