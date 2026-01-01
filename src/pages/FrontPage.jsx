@@ -53,12 +53,13 @@ export const FrontPage = () => {
     api.fetchIdsFromHackerNewsApi(url)
       .then((data) => {
         setStoryIds(data);
-        setLoading(false);
         return data;
       })
       .then((data) => {
         if (data && data.length > 0) {
           handlePageChange(data, 1);
+        } else {
+          setLoading(false);
         }
       })
       .catch((error) => {

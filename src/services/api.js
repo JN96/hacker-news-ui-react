@@ -20,7 +20,7 @@ const fetchIdsFromHackerNewsApi = async (api) => {
     return Utility.transformData(data);
   }
 
-  throw new Error(dictionary.api.error + ` Response code: ${response.status}`);
+  throw new Error(dictionary.api.error + ` Response code: ${response.status} - ${response.statusText}`);
 };
 
 const fetchDataFromIds = async (data, page) => {
