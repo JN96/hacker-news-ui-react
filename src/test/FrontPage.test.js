@@ -43,6 +43,8 @@ describe('FrontPage', () => {
   });
 
   it('should display no stories found', async () => {
+    jest.spyOn(api, 'fetchIdsFromHackerNewsApi').mockImplementation(() => Promise.resolve([]));
+
     render(<FrontPage/>);
 
     const node = await waitFor(() => screen.getByText(dictionary.frontPage.noStoriesFound));
